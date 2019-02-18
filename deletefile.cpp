@@ -13,11 +13,15 @@ void DeleteFile::selectDeleteProcedure(QString path, int procedure) {
 void DeleteFile::easyDelete(QString path) {
     QFile file(path);
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::WriteOnly))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::WriteOnly)) {
+         qDebug() << "not open";
          return;
+    }
+
 
      QByteArray buffer(file.size(), '\x00');
      file.write(buffer);
+     file.remove();
 }
 
 void DeleteFile::mediumDelete(QString path){
